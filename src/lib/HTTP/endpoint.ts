@@ -1,26 +1,14 @@
 import { HttpMethod } from './index'
 
-export const API_ROUTES = {
+export const BACKEND_ROUTES = {
   AUTH: {
     LOGIN: {
       method: HttpMethod.POST,
-      url: '/user/login',
+      url: '/auth/login',
     },
     REGISTER: {
       method: HttpMethod.POST,
-      url: '/user/register',
-    },
-    UNREGISTER: {
-      method: HttpMethod.POST,
-      url: '/user/unregister',
+      url: '/auth/register',
     },
   },
-}
-
-const baseUrl = 'http://localhost:8001'
-
-export const Fetch = async (url: string, options: RequestInit) => {
-  const URL = `${baseUrl}${url}`
-  const response = await fetch(URL, options)
-  return response
 }
