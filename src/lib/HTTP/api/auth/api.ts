@@ -1,8 +1,15 @@
+import { Nullable } from '@/src/lib/utils/typeUtils'
+
 import { API_ROUTES, Fetch } from '../../endpoint'
 
 export interface LoginType {
   student_id: string
   password: string
+}
+
+export type SuccessResponse = {
+  content: Nullable<{ [key: string]: string }>
+  message: string
 }
 
 export const Login = async ({ student_id, password }: LoginType) => {
@@ -12,7 +19,6 @@ export const Login = async ({ student_id, password }: LoginType) => {
     student_id,
     password,
   }
-  console.log('Exectued login')
 
   const res = await Fetch(ROUTE.url, {
     method: ROUTE.method,
@@ -23,12 +29,13 @@ export const Login = async ({ student_id, password }: LoginType) => {
   })
 
   if (!res.ok) {
-    const error = new Error('로그인 실패')
-    error.message = await res.json()
+    const error = new Error()
+    const data = await res.json()
+    error.message = data.message
     throw error
   }
 
-  const data = await res.json()
+  const data: SuccessResponse = await res.json()
 
   return data
 }
@@ -49,7 +56,6 @@ export const Register = async ({ student_id, password, student_name, email }: Re
     student_name,
     email,
   }
-  console.log('Exectued register')
 
   const res = await Fetch(ROUTE.url, {
     method: ROUTE.method,
@@ -60,8 +66,10 @@ export const Register = async ({ student_id, password, student_name, email }: Re
   })
 
   if (!res.ok) {
-    const error = new Error('회원가입 실패')
-    error.message = await res.json()
+    const error = new Error()
+    const data = await res.json()
+    error.message = data.message
+
     throw error
   }
 
@@ -92,8 +100,9 @@ export const Unregister = async ({ student_id, password }: UnregisterType) => {
   })
 
   if (!res.ok) {
-    const error = new Error('회원탈퇴 실패')
-    error.message = await res.json()
+    const error = new Error()
+    const data = await res.json()
+    error.message = data.message
     throw error
   }
 

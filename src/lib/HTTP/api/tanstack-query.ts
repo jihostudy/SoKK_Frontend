@@ -1,22 +1,9 @@
-import { QueryClient, useMutation } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
+
+import { queryClient } from '@/src/components/provider/QueryClientProvider'
 
 import { ExtractValueByKey } from '../../utils/typeUtils'
-import { Login, Register, Unregister } from './auth/api'
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      retryDelay: 0,
-      // 10분으로 staleTime 지정하기
-      staleTime: 1 * 60 * 1000 * 10,
-    },
-    mutations: {
-      retry: 1,
-      retryDelay: 0,
-    },
-  },
-})
+import { Login, Register, SuccessResponse, Unregister } from './auth/api'
 
 /*
  * Mutation Keys to use Mutations convenient
@@ -68,5 +55,5 @@ queryClient.setMutationDefaults(MUTATION_KEYS.AUTH.UNREGISTER.key, {
 export type MutationKeyType = ExtractValueByKey<typeof MUTATION_KEYS, 'key'>
 
 export const useMutationStore = <T>(mutationKey: MutationKeyType) => {
-  return useMutation<unknown, Error, T, unknown>({ mutationKey })
+  return useMutation<SuccessResponse, Error, T, unknown>({ mutationKey })
 }
