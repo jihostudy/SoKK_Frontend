@@ -1,7 +1,6 @@
 import { ModalData } from '@/src/components/common/Modals'
 
 export const ClientModalData = {
-  // Success
   AUTH: {
     REGISTER: {
       SUCCESS: {
@@ -93,11 +92,25 @@ export const ClientModalData = {
   },
   ROOM: {
     RESERVE: {
+      ATTEMPT: {
+        id: 'confirm',
+        title: '스터디룸 예약',
+        description: '해당 정보를 토대로 예약하시겠습니까?',
+        isError: false,
+      },
       AUTH_REQUIRED: {
         id: 'info',
         title: '로그인 필요',
         description: '예약을 위해서 로그인해주세요',
         isError: true,
+      },
+    },
+    UNRESERVE: {
+      CONFIRM: {
+        id: 'confirm',
+        title: '예약 취소 확인',
+        description: '예약을 취소 하시겠습니까?',
+        isError: false,
       },
     },
   },
